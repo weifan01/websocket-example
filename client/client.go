@@ -130,9 +130,7 @@ func (c *Client) readMessages() {
 			continue
 		}
 
-		if err := router.routeEvent(request, c); err != nil {
-			log.Println("Error handling Message: ", err)
-		}
+		go router.routeEvent(request, c)
 
 	}
 }

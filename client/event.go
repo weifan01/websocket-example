@@ -33,13 +33,12 @@ func (h Handlers) setupEventHandlers() {
 }
 
 // routeEvent 合理的事件用对应的handler处理
-func (h Handlers) routeEvent(event common.Event, c *Client) error {
+func (h Handlers) routeEvent(event common.Event, c *Client) {
 	if handler, ok := h[event.Type]; ok {
 		if err := handler(event, c); err != nil {
-			return err
+			log.Println("error handling event:", err)
 		}
-		return nil
 	} else {
-		return ErrEventNotSupported
+		log.Println(ErrEventNotSupported)
 	}
 }
